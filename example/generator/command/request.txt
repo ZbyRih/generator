@@ -1,0 +1,9 @@
+<?php
+
+namespace {#$part0#};
+
+use App\Abstractions\AbstractRequest;
+
+class {#$part1#}Request extends AbstractRequest
+{
+}

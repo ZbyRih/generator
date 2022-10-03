@@ -1,0 +1,29 @@
+<?php
+
+namespace {#$part0#};
+
+use App\Abstractions\AbstractCommandRequest;
+use App\Interfaces\RequestInterface;
+use App\Models\Orm\Orm;
+
+class {#$part1#}Command extends AbstractCommandRequest
+{
+	private {#$part1#}Request $request;
+
+	public function __construct(
+		private Orm $orm
+	){
+	}
+
+	/** @param {#$part1#}Request $request */
+	public function setRequest(RequestInterface $request): void
+	{
+		$this->request = $request;
+	}
+
+	public function execute(): void
+	{
+		$request = $this->request;
+
+	}
+}

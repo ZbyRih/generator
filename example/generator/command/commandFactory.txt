@@ -1,0 +1,10 @@
+<?php
+
+namespace {#$part0#};
+
+use App\Interfaces\FactoryInterface;
+
+interface {#$part1#}CommandFactory extends FactoryInterface
+{
+	public function create(): {#$part1#}Command;
+}

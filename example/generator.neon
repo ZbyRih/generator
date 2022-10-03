@@ -1,0 +1,8 @@
+parameters:
+	command:
+		baseFolder: App/Commands
+		baseNamespace: App\Commands
+		files:
+			'command{name}.php': generator/command/command.txt
+			request.php: generator/command/request.txt
+			commandFactory.php: generator/command/commandFactory.txt
