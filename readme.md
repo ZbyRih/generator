@@ -17,13 +17,13 @@ Usage
 first you have to create config file generator.neon in you current working directory:
 ```yml
 parameters:
-	command: # section named command
-		baseFolder: App/Commands
-		baseNamespace: App\Commands
-		files:
-			'command{name}.php': generator/command/command.txt # output file : source file
-			request.php: generator/command/request.txt
-			commandFactory.php: generator/command/commandFactory.txt
+  command: # section named command
+    baseFolder: App/Commands
+    baseNamespace: App\Commands
+    files:
+      'command{name}.php': generator/command/command.txt # output file : source file
+      request.php: generator/command/request.txt
+      commandFactory.php: generator/command/commandFactory.txt
 ```
 
 then run command `generator command Some/Save` that generates files:
