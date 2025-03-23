@@ -13,6 +13,7 @@ include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 $definition = new InputDefinition();
 $definition->addOption(new InputOption('help', null, InputOption::VALUE_NONE, 'Display this help message'));
+$definition->addOption(new InputOption('init', null, InputOption::VALUE_NONE, 'Initialize generator.neon'));
 $definition->addOption(new InputOption('config', null, InputOption::VALUE_OPTIONAL, 'Configuration file', 'generator.neon'));
 $definition->addArgument(new InputArgument('template', InputArgument::REQUIRED, 'Template for generating'));
 $definition->addArgument(new InputArgument('parameter', InputArgument::REQUIRED, 'Parameter for generating by template'));
@@ -46,6 +47,32 @@ if ($input->getOption('help')) {
 	}
 	$style->definitionList('Avaible options', ...$list);
 	echo "\t" . $definition->getSynopsis(false);
+	exit;
+}
+
+if ($input->getOption('init')) {
+	$neon = new Neon();
+	$currentPath = getcwd();
+	$generatorNeon = $currentPath . '/generator.neon';
+
+	if (file_exists($generatorNeon)) {
+		$style->error('File generator.neon already exists');
+		exit;
+	}
+
+	$neon = <<<NEON
+parameters:
+	command:
+		baseFolder: App/Commands
+		baseNamespace: App\Commands
+		files:
+			'command{name}.php': generator/command/command.txt
+			request.php: generator/command/request.txt
+			commandFactory.php: generator/command/commandFactory.txt
+NEON;
+
+	file_put_contents($generatorNeon, $neon);
+
 	exit;
 }
 
@@ -86,7 +113,7 @@ if (isset($config['parameters'][$section]['baseNamespace'])) {
 	$baseNamespace = $config['parameters'][$section]['baseNamespace'];
 }
 
-$namespaceParts = array_map(fn ($e) => ucfirst($e), explode('^', str_replace(['/', '\\'], ['^', '^'], $namespace)));
+$namespaceParts = array_map(fn($e) => ucfirst($e), explode('^', str_replace(['/', '\\'], ['^', '^'], $namespace)));
 $lastPart = array_pop($namespaceParts);
 $namespacePrefix = implode('\\', $namespaceParts);
 
